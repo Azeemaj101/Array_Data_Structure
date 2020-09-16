@@ -7,36 +7,35 @@ void quick(int A[], int N, int BEG, int END, int *LOCPTR)
     Left = BEG;
     Right = END;
     *LOCPTR = BEG;
-step2:
-    while (A[*LOCPTR] <= A[Right] && *LOCPTR != Right)
-        Right--;
-    if (*LOCPTR == Right)
+    while (true)
     {
-        return;
+        while (A[*LOCPTR] <= A[Right] && *LOCPTR != Right)
+            Right--;
+        if (*LOCPTR == Right)
+        {
+            return;
+        }
+        if (A[*LOCPTR] > A[Right])
+        {
+            temp = A[*LOCPTR];
+            A[*LOCPTR] = A[Right];
+            A[Right] = temp;
+            *LOCPTR = Right;
+        }
+        while (A[Left] <= A[*LOCPTR] && Left != *LOCPTR)
+            Left++;
+        if (*LOCPTR == Left)
+        {
+            return;
+        }
+        if (A[Left] > A[*LOCPTR])
+        {
+            temp = A[Left];
+            A[Left] = A[*LOCPTR];
+            A[*LOCPTR] = temp;
+            *LOCPTR = Left;
+        }
     }
-    if (A[*LOCPTR] > A[Right])
-    {
-        temp = A[*LOCPTR];
-        A[*LOCPTR] = A[Right];
-        A[Right] = temp;
-        *LOCPTR = Right;
-    }
-    goto step3;
-step3:
-    while (A[Left] <= A[*LOCPTR] && Left != *LOCPTR)
-        Left++;
-    if (*LOCPTR == Left)
-    {
-        return;
-    }
-    if (A[Left] > A[*LOCPTR])
-    {
-        temp = A[Left];
-        A[Left] = A[*LOCPTR];
-        A[*LOCPTR] = temp;
-        *LOCPTR = Left;
-    }
-    goto step2;
 }
 void quick_sort(int A[], int N)
 {
